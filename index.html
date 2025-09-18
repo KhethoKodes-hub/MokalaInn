@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mokala Inn - Premier Hospitality in Kuruman</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="icon" href="assets/MokalaLogo.png" type="image/png">
-
     <style>
         * {
             margin: 0;
@@ -16,7 +14,7 @@
 
         :root {
             --primary-gradient: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-            --secondary-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            --secondary-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1b 100%);
             --accent-gradient: linear-gradient(135deg, #fecaca 0%, #fee2e2 100%);
             --white-gradient: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             --dark-red-gradient: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
@@ -76,11 +74,6 @@
             align-items: center;
         }
 
-        .logo img {
-            height: 50px;
-            margin-right: 10px;
-        }
-
         .nav-links {
             display: flex;
             list-style: none;
@@ -129,9 +122,10 @@
             color: var(--text-red);
         }
 
+        /* Hero Section */
         .hero {
             height: 100vh;
-            background: var(--primary-gradient), url('./assets/bedroom.png');
+            background: var(--primary-gradient), url('./assets/room.png');
             background-blend-mode: overlay;
             background-size: cover;
             background-position: center;
@@ -175,7 +169,7 @@
             font-weight: 900;
             opacity: 0;
             animation: slideInFromLeft 1.2s ease 0.5s forwards;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(239, 231, 231, 0.3);
         }
 
         .hero .subtitle {
@@ -200,7 +194,7 @@
         }
 
         .tagline-badge {
-            background: rgba(255,255,255,0.2);
+            background: rgba(243, 238, 238, 0.2);
             padding: 8px 16px;
             border-radius: 25px;
             display: inline-flex;
@@ -435,6 +429,9 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .mv-card p {
@@ -466,6 +463,9 @@
             border: 3px solid transparent;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .service-card::before {
@@ -515,6 +515,39 @@
         .service-card p {
             font-size: 1.1rem;
             line-height: 1.8;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .service-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-gradient);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            margin-top: auto;
+        }
+
+        .service-button:hover {
+            background: transparent;
+            color: var(--text-red);
+            border-color: var(--text-red);
+            transform: translateY(-3px);
+        }
+
+        .service-card:hover .service-button {
+            background: var(--white-gradient);
+            color: var(--text-red);
+        }
+
+        .service-card:hover .service-button:hover {
+            background: transparent;
+            color: var(--text-light);
+            border-color: var(--text-light);
         }
 
         /* Accreditation Section */
@@ -653,60 +686,14 @@
             font-size: 1.4rem;
             margin-bottom: 1rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
 
         .value-card p {
             line-height: 1.7;
             opacity: 0.9;
-        }
-
-        /* Gallery Section */
-        .gallery {
-            padding: 6rem 0;
-            background: var(--white-gradient);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .gallery-item {
-            height: 300px;
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            box-shadow: var(--card-shadow);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .gallery-item:hover::after {
-            opacity: 1;
         }
 
         /* Testimonials Section */
@@ -964,6 +951,7 @@
             font-size: 1.3rem;
             margin-bottom: 1.5rem;
             font-weight: 700;
+            color: var(--text-light);
         }
 
         .footer-links {
@@ -1118,7 +1106,6 @@
             }
             
             .testimonials-container,
-            .gallery-grid,
             .clients-grid {
                 grid-template-columns: 1fr;
             }
@@ -1220,15 +1207,14 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <a ><img src="assets/MokalaLogo.png" height="80" width="80"></a> 
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
                 <!--<li><a href="#clients">Clients</a></li>-->
                 <!--<li><a href="#values">Values</a></li>-->
-                <!--<li><a href="#gallery">Gallery</a></li>-->
                 <!--<li><a href="#testimonials">Testimonials</a></li>-->
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1240,7 +1226,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
+        <div w>
             <h1>Mokala Inn</h1>
             <p class="subtitle">Premier Hospitality in the Heart of Kuruman</p>
             <div class="tagline">
@@ -1325,24 +1311,28 @@
                     <div class="service-icon"><i class="fas fa-hotel"></i></div>
                     <h3>Luxury Accommodation</h3>
                     <p>Experience comfort and elegance in our thoughtfully designed rooms and suites. Each space is crafted to provide a home-away-from-home atmosphere with modern amenities and personalized service that makes every stay memorable.</p>
+                    <a href="#contact" class="service-button">Book Now</a>
                 </div>
                 
                 <div class="service-card animate-on-scroll">
                     <div class="service-icon"><i class="fas fa-utensils"></i></div>
                     <h3>Exceptional Catering</h3>
                     <p>From intimate gatherings to grand celebrations, our culinary team delivers exceptional catering services. We blend local flavors with international cuisine, ensuring every event is a gastronomic journey your guests will remember.</p>
+                    <a href="#contact" class="service-button">Request Quote</a>
                 </div>
                 
                 <div class="service-card animate-on-scroll">
                     <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
                     <h3>Event Hosting</h3>
                     <p>Our versatile spaces are perfect for conferences, weddings, and special events. We provide comprehensive event planning services to ensure your occasion is executed flawlessly from start to finish.</p>
+                    <a href="#contact" class="service-button">Plan Event</a>
                 </div>
                 
                 <div class="service-card animate-on-scroll">
                     <div class="service-icon"><i class="fas fa-car"></i></div>
                     <h3>Transport Services</h3>
                     <p>We offer reliable transport solutions for our guests, including airport transfers and local tours. Explore the beauty of Kuruman and its surroundings with our comfortable and safe transportation options.</p>
+                    <a href="#contact" class="service-button">Arrange Transport</a>
                 </div>
             </div>
         </div>
@@ -1446,35 +1436,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Gallery Section 
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">Our Gallery</h2>
-            <p class="section-subtitle animate-on-scroll">A glimpse of the Mokala Inn experience</p>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Room">
-                </div>
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Restaurant">
-                </div>
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Conference Room">
-                </div>
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Swimming Pool">
-                </div>
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hotel Lobby">
-                </div>
-                <div class="gallery-item animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1594741158701-e5ab913e178b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Catering Service">
-                </div>
-            </div>
-        </div>
-    </section>-->
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
@@ -1621,7 +1582,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-about">
-                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <div class="footer-logo">Mokala Inn</div>
                 <p class="footer-about">A premier hospitality establishment in Kuruman, offering exceptional accommodation and catering services with a commitment to empowerment and community development.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1637,7 +1598,7 @@
                     <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
                     <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
                     <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
-                    <li><a href="#gallery"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+                    <li><a href="#values"><i class="fas fa-chevron-right"></i> Values</a></li>
                     <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                 </ul>
             </div>
@@ -1649,7 +1610,6 @@
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Catering</a></li>
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Event Hosting</a></li>
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Transport</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Conference Facilities</a></li>
                 </ul>
             </div>
             
