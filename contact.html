@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Mokala Inn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="icon" href="assets/MokalaLogo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            --secondary-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            --accent-gradient: linear-gradient(135deg, #fecaca 0%, #fee2e2 100%);
+            --white-gradient: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --dark-red-gradient: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+            --light-red-gradient: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            --text-light: #ffffff;
+            --text-dark: #1f2937;
+            --text-red: #dc2626;
+            --card-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
+            --gold: #FFD700;
+            --bronze: #CD7F32;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: var(--light-red-gradient);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white-gradient);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.4s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 2px solid #fee2e2;
+            box-shadow: 0 4px 25px rgba(220, 38, 38, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: var(--accent-gradient);
+            color: var(--text-red);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-red);
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 50vh;
+            background: var(--primary-gradient), url('https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+           50% { opacity: 0.8; }
+        }
+
+        .page-header-content {
+            text-align: center;
+            color: var(--text-light);
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            font-size: 1.1rem;
+        }
+
+        .breadcrumb li {
+            margin: 0 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin-left: 1rem;
+            color: var(--text-light);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            color: var(--text-red);
+            font-weight: 300;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--white-gradient);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.1);
+        }
+
+        .contact-item:hover {
+            transform: translateX(15px);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+            margin-right: 1.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            color: white;
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            color: var(--text-red);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p, .contact-details a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--text-red);
+        }
+
+        .directors-container {
+            margin-top: 3rem;
+        }
+
+        .director-card {
+            background: var(--white-gradient);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .director-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.15);
+        }
+
+        .director-card h4 {
+            color: var(--text-red);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .director-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .director-contact a {
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .director-contact a:hover {
+            color: var(--text-red);
+            transform: translateX(5px);
+        }
+
+        .contact-form {
+            background: var(--white-gradient);
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: var(--card-shadow);
+            border: 2px solid #fee2e2;
+        }
+
+        .contact-form h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #fee2e2;
+            background: white;
+            border-radius: 12px;
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 0 0 6rem;
+        }
+
+        .map-container {
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .map-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--white-gradient);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.1);
+        }
+
+        .map-info-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Business Hours */
+        .business-hours {
+            padding: 4rem 0;
+            background: var(--white-gradient);
+        }
+
+        .hours-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .hours-card {
+            background: var(--white-gradient);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+
+        .hours-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-red);
+            font-weight: 700;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #fee2e2;
+        }
+
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+
+        .hours-list .day {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .hours-list .time {
+            color: var(--text-red);
+            font-weight: 500;
+        }
+
+        .emergency-contact {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #fee2e2;
+        }
+
+        .emergency-contact p {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .emergency-contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-contact a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 0;
+            background: var(--light-red-gradient);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white-gradient);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.1);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--text-red);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 0;
+            background: var(--primary-gradient);
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: var(--white-gradient);
+            color: var(--text-red);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            background: transparent;
+            color: var(--text-light);
+            border-color: white;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--white-gradient);
+            color: var(--text-red);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-red-gradient);
+            color: var(--text-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-about {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .footer-heading {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gradient);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page-header h1 {
+                font-size: 3.5rem;
+            }
+            
+            .contact-wrapper {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white-gradient);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header {
+                height: 40vh;
+                margin-top: 70px;
+            }
+
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .hours-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-info {
+                flex-direction: column;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Animation utilities */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a ><img src="assets/MokalaLogo.png" height="80" width="80"></a> 
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <!--<li><a href="accommodation.html">Accommodation</a></li>-->
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Contact Us</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Contact</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+            <p class="section-subtitle animate-on-scroll">We're here to help with all your accommodation and catering needs</p>
+            
+            <div class="contact-wrapper">
+                <div class="contact-info slide-left">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>1 Suikerbekkie Street<br>Kuruman, 8460<br>Northern Cape, South Africa</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p><a href="tel:0532850912">053 285 0912</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/2714480537">071 448 0537</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:stay@mokalainn.africa">stay@mokalainn.africa</a></p>
+                        </div>
+                    </div>
+
+                    <div class="directors-container">
+                        <h3>Directors</h3>
+                        
+                        <div class="director-card">
+                            <h4>Rhodia Peter</h4>
+                            <p>Director</p>
+                            <div class="director-contact">
+                                <a href="mailto:rhodia@mokalainn.africa"><i class="fas fa-envelope"></i> rhodia@mokalainn.africa</a>
+                                <a href="tel:0823804215"><i class="fas fa-phone"></i> 082 380 4215</a>
+                            </div>
+                        </div>
+                        
+                        <div class="director-card">
+                            <h4>Phitlhelelo Peter</h4>
+                            <p>Director</p>
+                            <div class="director-contact">
+                                <a href="mailto:phitlhelelo@mokalainn.africa"><i class="fas fa-envelope"></i> phitlhelelo@mokalainn.africa</a>
+                                <a href="tel:0824066675"><i class="fas fa-phone"></i> 082 406 6675</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form slide-right">
+                    <h3>Send Us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Your Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Your Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Your Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service">
+                                <option value="">Select a Service</option>
+                                <option value="accommodation">Accommodation</option>
+                                <option value="catering">Catering Services</option>
+                                <option value="events">Event Hosting</option>
+                                <option value="transport">Transport Services</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" rows="6" placeholder="Your Message or Special Requests" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our Location</h2>
+            <p class="section-subtitle animate-on-scroll">Conveniently located in the heart of Kuruman</p>
+            
+            <div class="map-container animate-on-scroll">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110689.450467337!2d23.4043177!3d-27.4652255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1eeb1e6e5e5e5e5f%3A0x5e5e5e5e5e5e5e5e!2sKuruman!5e0!3m2!1sen!2sza!4v1620000000000!5m2!1sen!2sza" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            
+            <div class="map-info">
+                <div class="map-info-item">
+                    <div class="map-info-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div>
+                        <h4>Free Parking</h4>
+                        <p>Ample secure parking available</p>
+                    </div>
+                </div>
+                
+                <div class="map-info-item">
+                    <div class="map-info-icon">
+                        <i class="fas fa-map-signs"></i>
+                    </div>
+                    <div>
+                        <h4>Easy to Find</h4>
+                        <p>Central location in Kuruman</p>
+                    </div>
+                </div>
+                
+                <div class="map-info-item">
+                    <div class="map-info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <h4>24/7 Security</h4>
+                        <p>Safe and secure environment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Hours -->
+    <section class="business-hours">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Business Hours</h2>
+            <p class="section-subtitle animate-on-scroll">We're here to serve you</p>
+            
+            <div class="hours-container">
+                <div class="hours-card animate-on-scroll">
+                    <h3><i class="fas fa-hotel"></i> Accommodation</h3>
+                    <ul class="hours-list">
+                        <li><span class="day">Monday - Sunday</span> <span class="time">24/7 Reception</span></li>
+                        <li><span class="day">Check-in</span> <span class="time">From 2:00 PM</span></li>
+                        <li><span class="day">Check-out</span> <span class="time">By 10:00 AM</span></li>
+                    </ul>
+                </div>
+                
+                <div class="hours-card animate-on-scroll">
+                    <h3><i class="fas fa-utensils"></i> Catering Services</h3>
+                    <ul class="hours-list">
+                        <li><span class="day">Monday - Friday</span> <span class="time">8:00 AM - 6:00 PM</span></li>
+                        <li><span class="day">Saturday</span> <span class="time">9:00 AM - 4:00 PM</span></li>
+                        <li><span class="day">Sunday</span> <span class="time">9:00 AM - 2:00 PM</span></li>
+                    </ul>
+                </div>
+                
+                <div class="hours-card animate-on-scroll">
+                    <h3><i class="fas fa-headset"></i> Reservations</h3>
+                    <ul class="hours-list">
+                        <li><span class="day">Monday - Friday</span> <span class="time">8:00 AM - 8:00 PM</span></li>
+                        <li><span class="day">Saturday</span> <span class="time">9:00 AM - 5:00 PM</span></li>
+                        <li><span class="day">Sunday</span> <span class="time">9:00 AM - 3:00 PM</span></li>
+                    </ul>
+                    
+                    <div class="emergency-contact">
+                        <p>After hours emergency contact:</p>
+                        <a href="tel:0823804215"><i class="fas fa-phone"></i> 082 380 4215</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Frequently Asked Questions</h2>
+            <p class="section-subtitle animate-on-scroll">Quick answers to common questions</p>
+            
+            <div class="faq-container">
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        What methods of payment do you accept?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        We accept cash, credit/debit cards, and EFT payments. For corporate accounts, we offer invoicing with 30-day payment terms.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        Do you offer long-term stay discounts?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we offer special rates for extended stays. Please contact our reservations team for customized long-stay packages.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        Can you accommodate dietary restrictions for catering?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely. Our catering team can accommodate various dietary needs including vegetarian, vegan, gluten-free, and specific allergies. Please inform us in advance.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        Is there WiFi available?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we provide complimentary high-speed WiFi throughout the property for all our guests.
+                    </div>
+                </div>
+                
+                <div class="faq-item animate-on-scroll">
+                    <div class="faq-question">
+                        Do you have facilities for events and conferences?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we have versatile event spaces suitable for conferences, meetings, weddings, and other special events. Our team can assist with planning and coordination.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Book or Have Questions?</h2>
+            <p>Contact us today to make a reservation, inquire about our services, or schedule a visit to our facilities.</p>
+            <div class="cta-buttons">
+                <a href="tel:0532850912" class="cta-button"><i class="fas fa-phone"></i> Call Now</a>
+                <a href="https://wa.me/2714480537" class="cta-button secondary"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <p class="footer-about">A premier hospitality establishment in Kuruman, offering exceptional accommodation and catering services with a commitment to empowerment and community development.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3 class="footer-heading">Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="accommodation.html"><i class="fas fa-chevron-right"></i> Accommodation</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3 class="footer-heading">Services</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Accommodation</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Catering</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Event Hosting</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Transport Services</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3 class="footer-heading">Contact Info</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 1 Suikerbekkie Street, Kuruman</a></li>
+                    <li><a href="tel:0532850912"><i class="fas fa-phone"></i> 053 285 0912</a></li>
+                    <li><a href="https://wa.me/2714480537"><i class="fab fa-whatsapp"></i> 071 448 0537</a></li>
+                    <li><a href="mailto:stay@mokalainn.africa"><i class="fas fa-envelope"></i> stay@mokalainn.africa</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-text">&copy; 2025 Mokala Inn (Pty) Ltd. All rights reserved.</p>
+            <p class="footer-text">Accredited by Tourism Grading Council of South Africa | 51% Black Female Owned | 49% Youth Ownership</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add staggered delay for multiple elements
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll, .slide-left, .slide-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // Button loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.style.opacity = '0.7';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Thank you for your message! We will contact you within 24 hours.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.style.opacity = '1';
+            }, 2000);
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Back to top functionality
+        const backToTopBtn = document.querySelector('.back-to-top');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Click to call functionality
+        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const phoneNumber = this.getAttribute('href').replace('tel:', '');
+                if (confirm(`Would you like to call ${phoneNumber}?`)) {
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

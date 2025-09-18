@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Mokala Inn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="icon" href="assets/MokalaLogo.png" type="image/png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            --secondary-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            --accent-gradient: linear-gradient(135deg, #fecaca 0%, #fee2e2 100%);
+            --white-gradient: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --dark-red-gradient: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+            --light-red-gradient: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+            --text-light: #ffffff;
+            --text-dark: #1f2937;
+            --text-red: #dc2626;
+            --card-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
+            --gold: #FFD700;
+            --bronze: #CD7F32;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: var(--light-red-gradient);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white-gradient);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.4s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 2px solid #fee2e2;
+            box-shadow: 0 4px 25px rgba(220, 38, 38, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: var(--accent-gradient);
+            color: var(--text-red);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-red);
+        }
+
+        /* Page Header */
+        .page-header {
+            height: 60vh;
+            background: var(--primary-gradient), url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .page-header-content {
+            text-align: center;
+            color: var(--text-light);
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            font-size: 1.1rem;
+        }
+
+        .breadcrumb li {
+            margin: 0 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin-left: 1rem;
+            color: var(--text-light);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            color: var(--text-red);
+            font-weight: 300;
+        }
+
+        /* Services Intro */
+        .services-intro {
+            padding: 6rem 0;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .services-intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            padding: 3rem 0 6rem;
+        }
+
+        .service-card {
+            background: var(--white-gradient);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.5s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .service-card:hover::before {
+            left: 0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-20px);
+            color: var(--text-light);
+            border-color: var(--text-light);
+            box-shadow: 0 40px 80px rgba(220, 38, 38, 0.3);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            -webkit-text-fill-color: white;
+            transform: scale(1.2);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .service-features {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .service-features i {
+            color: var(--text-red);
+            font-size: 1.2rem;
+        }
+
+        .service-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-gradient);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            margin-top: auto;
+        }
+
+        .service-button:hover {
+            background: transparent;
+            color: var(--text-red);
+            border-color: var(--text-red);
+            transform: translateY(-3px);
+        }
+
+        .service-card:hover .service-button {
+            background: var(--white-gradient);
+            color: var(--text-red);
+        }
+
+        .service-card:hover .service-button:hover {
+            background: transparent;
+            color: var(--text-light);
+            border-color: var(--text-light);
+        }
+
+        /* Catering Packages */
+        .packages {
+            padding: 6rem 0;
+            background: var(--white-gradient);
+        }
+
+        .packages-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .package-card {
+            background: var(--white-gradient);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 35px 70px rgba(220, 38, 38, 0.25);
+        }
+
+        .package-header {
+            background: var(--primary-gradient);
+            color: var(--text-light);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .package-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .package-price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .package-body {
+            padding: 2rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .package-features i {
+            color: var(--text-red);
+        }
+
+        .package-button {
+            display: block;
+            text-align: center;
+            padding: 1rem 2rem;
+            background: var(--primary-gradient);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+        }
+
+        .package-button:hover {
+            background: var(--secondary-gradient);
+            transform: translateY(-3px);
+        }
+
+        /* Accreditation Section */
+        .accreditation {
+            padding: 6rem 0;
+            background: var(--light-red-gradient);
+            text-align: center;
+        }
+
+        .accreditation-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accreditation-badge {
+            width: 150px;
+            height: 150px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 0;
+            background: var(--white-gradient);
+        }
+
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--white-gradient);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(220, 38, 38, 0.25);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .testimonial-info h4 {
+            color: var(--text-red);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-info p {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: #fee2e2;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 0;
+            background: var(--primary-gradient);
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .cta h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 900;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: var(--white-gradient);
+            color: var(--text-red);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            background: transparent;
+            color: var(--text-light);
+            border-color: white;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--white-gradient);
+            color: var(--text-red);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-red-gradient);
+            color: var(--text-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-about {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .footer-heading {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gradient);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-text {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page-header h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white-gradient);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header {
+                height: 50vh;
+                margin-top: 70px;
+            }
+
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .services-grid,
+            .packages-container,
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Animation utilities */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <!--<li><a href="accommodation.html">Accommodation</a></li>-->
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Our Services</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li>Services</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Services Intro -->
+    <section class="services-intro">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Excellence in Hospitality</h2>
+            <p class="animate-on-scroll">At Mokala Inn, we take pride in offering exceptional accommodation and catering services that exceed expectations. With over a decade of experience serving diverse clients in Kuruman and the Northern Cape region, we have perfected the art of hospitality.</p>
+            <p class="animate-on-scroll">Our dedicated team is committed to providing personalized service, ensuring that every guest enjoys a memorable experience with us.</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-main">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon"><i class="fas fa-bed"></i></div>
+                    <h3>Luxury Accommodation</h3>
+                    <p>Experience comfort and elegance in our thoughtfully designed rooms and suites. Each space is crafted to provide a home-away-from-home atmosphere with modern amenities.</p>
+                    
+                    <div class="service-features">
+                        <h4>Room Features:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Comfortable queen or twin beds</li>
+                            <li><i class="fas fa-check-circle"></i> En-suite bathrooms</li>
+                            <li><i class="fas fa-check-circle"></i> Air conditioning</li>
+                            <li><i class="fas fa-check-circle"></i> Flat-screen TV with satellite channels</li>
+                            <li><i class="fas fa-check-circle"></i> Free high-speed WiFi</li>
+                            <li><i class="fas fa-check-circle"></i> Tea/coffee making facilities</li>
+                            <li><i class="fas fa-check-circle"></i> Secure parking</li>
+                            <li><i class="fas fa-check-circle"></i> 24-hour security</li>
+                        </ul>
+                    </div>
+                    <a href="accommodation.html" class="service-button">View Rooms</a>
+                </div>
+                
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Exceptional Catering</h3>
+                    <p>From intimate gatherings to grand celebrations, our culinary team delivers exceptional catering services. We blend local flavors with international cuisine.</p>
+                    
+                    <div class="service-features">
+                        <h4>Catering Services:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Corporate events and conferences</li>
+                            <li><i class="fas fa-check-circle"></i> Weddings and special celebrations</li>
+                            <li><i class="fas fa-check-circle"></i> Private dinners</li>
+                            <li><i class="fas fa-check-circle"></i> Breakfast, lunch, and dinner service</li>
+                            <li><i class="fas fa-check-circle"></i> Customized menus</li>
+                            <li><i class="fas fa-check-circle"></i> Dietary requirements accommodated</li>
+                            <li><i class="fas fa-check-circle"></i> Waitstaff and full service</li>
+                            <li><i class="fas fa-check-circle"></i> Equipment rental available</li>
+                        </ul>
+                    </div>
+                    <a href="contact.html" class="service-button">Request Catering</a>
+                </div>
+                
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Event Hosting</h3>
+                    <p>Our versatile spaces are perfect for conferences, meetings, weddings, and special events. We provide comprehensive event planning services.</p>
+                    
+                    <div class="service-features">
+                        <h4>Event Services:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Conference facilities</li>
+                            <li><i class="fas fa-check-circle"></i> Wedding venues</li>
+                            <li><i class="fas fa-check-circle"></i> Meeting rooms</li>
+                            <li><i class="fas fa-check-circle"></i> Team building events</li>
+                            <li><i class="fas fa-check-circle"></i> Audio-visual equipment</li>
+                            <li><i class="fas fa-check-circle"></i> Event coordination</li>
+                            <li><i class="fas fa-check-circle"></i> Decor and setup</li>
+                            <li><i class="fas fa-check-circle"></i> Outdoor event options</li>
+                        </ul>
+                    </div>
+                    <a href="contact.html" class="service-button">Plan Your Event</a>
+                </div>
+                
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon"><i class="fas fa-car"></i></div>
+                    <h3>Transport Services</h3>
+                    <p>We offer reliable transport solutions for our guests, including airport transfers and local tours. Explore the beauty of Kuruman with our comfortable transportation.</p>
+                    
+                    <div class="service-features">
+                        <h4>Transport Options:</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Airport transfers</li>
+                            <li><i class="fas fa-check-circle"></i> Local sightseeing tours</li>
+                            <li><i class="fas fa-check-circle"></i> Corporate transport</li>
+                            <li><i class="fas fa-check-circle"></i> Group transportation</li>
+                            <li><i class="fas fa-check-circle"></i> Reliable and punctual service</li>
+                            <li><i class="fas fa-check-circle"></i> Professional drivers</li>
+                            <li><i class="fas fa-check-circle"></i> Comfortable vehicles</li>
+                            <li><i class="fas fa-check-circle"></i> Competitive rates</li>
+                        </ul>
+                    </div>
+                    <a href="contact.html" class="service-button">Arrange Transport</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catering Packages -->
+    <section class="packages">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Catering Packages</h2>
+            <p class="section-subtitle animate-on-scroll">Tailored solutions for your events</p>
+            
+            <div class="packages-container">
+                <div class="package-card animate-on-scroll">
+                    <div class="package-header">
+                        <h3>Corporate Events</h3>
+                        <div class="package-price"><span></span></div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> Buffet or plated options</li>
+                            <li><i class="fas fa-check"></i> Tea/coffee station</li>
+                            <li><i class="fas fa-check"></i> Refreshments throughout</li>
+                            <li><i class="fas fa-check"></i> Professional serving staff</li>
+                            <li><i class="fas fa-check"></i> Customized menu options</li>
+                            <li><i class="fas fa-check"></i> Dietary requirements accommodated</li>
+                        </ul>
+                        <a href="contact.html" class="package-button">Inquire Now</a>
+                    </div>
+                </div>
+                
+                <div class="package-card animate-on-scroll">
+                    <div class="package-header">
+                        <h3>Weddings</h3>
+                        <div class="package-price"><span></span></div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> Custom wedding menu planning</li>
+                            <li><i class="fas fa-check"></i> Cake cutting service</li>
+                            <li><i class="fas fa-check"></i> Champagne toast</li>
+                            <li><i class="fas fa-check"></i> Professional waitstaff</li>
+                            <li><i class="fas fa-check"></i> Setup and cleanup</li>
+                            <li><i class="fas fa-check"></i> Menu tasting session</li>
+                        </ul>
+                        <a href="contact.html" class="package-button">Inquire Now</a>
+                    </div>
+                </div>
+                
+                <div class="package-card animate-on-scroll">
+                    <div class="package-header">
+                        <h3>Private Functions</h3>
+                        <div class="package-price"><span></span></div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> Birthday celebrations</li>
+                            <li><i class="fas fa-check"></i> Anniversary parties</li>
+                            <li><i class="fas fa-check"></i> Family gatherings</li>
+                            <li><i class="fas fa-check"></i> Themed events</li>
+                            <li><i class="fas fa-check"></i> Custom menu options</li>
+                            <li><i class="fas fa-check"></i> Decor assistance available</li>
+                        </ul>
+                        <a href="contact.html" class="package-button">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accreditation Section -->
+    <section class="accreditation">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Accreditation & Recognition</h2>
+            <p class="section-subtitle animate-on-scroll">Meeting the highest standards of excellence</p>
+            
+            <div class="accreditation-content animate-on-scroll">
+                <div class="accreditation-badge">
+                    <i class="fas fa-award"></i>
+                </div>
+                <p>Mokala Inn is proudly accredited by the Tourism Grading Council of South Africa, ensuring that we meet the highest standards of quality and service excellence in the hospitality industry. This recognition reflects our commitment to providing exceptional experiences for all our guests.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Client Testimonials</h2>
+            <p class="section-subtitle animate-on-scroll">What our clients say about our services</p>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <p class="testimonial-text">"Mokala Inn provided exceptional catering services for our corporate conference. The food was delicious, the service was impeccable, and they accommodated all our dietary requirements seamlessly."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div class="testimonial-info">
+                            <h4>Department of Health</h4>
+                            <p>Government Department</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <p class="testimonial-text">"We've been using Mokala Inn for accommodation for our visiting staff for years. The rooms are always clean, comfortable, and the staff goes above and beyond to make our guests feel welcome."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div class="testimonial-info">
+                            <h4>Frostbite Lifestyle</h4>
+                            <p>Corporate Client</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card animate-on-scroll">
+                    <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                    <p class="testimonial-text">"The team at Mokala Inn helped us organize a beautiful wedding reception. Their attention to detail, excellent catering, and beautiful venue made our special day absolutely perfect."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class="fas fa-user"></i></div>
+                        <div class="testimonial-info">
+                            <h4>Private Client</h4>
+                            <p>Wedding Celebration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Experience Our Services?</h2>
+            <p>Whether you need accommodation, catering, or event hosting, our team is ready to provide you with exceptional service tailored to your needs.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-button">Contact Us</a>
+                <a href="accommodation.html" class="cta-button secondary">View Accommodation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <p class="footer-about">A premier hospitality establishment in Kuruman, offering exceptional accommodation and catering services with a commitment to empowerment and community development.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3 class="footer-heading">Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="accommodation.html"><i class="fas fa-chevron-right"></i> Accommodation</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3 class="footer-heading">Services</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Accommodation</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Catering</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Event Hosting</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Transport Services</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3 class="footer-heading">Contact Info</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 1 Suikerbekkie Street, Kuruman</a></li>
+                    <li><a href="tel:0532850912"><i class="fas fa-phone"></i> 053 285 0912</a></li>
+                    <li><a href="https://wa.me/2714480537"><i class="fab fa-whatsapp"></i> 071 448 0537</a></li>
+                    <li><a href="mailto:stay@mokalainn.africa"><i class="fas fa-envelope"></i> stay@mokalainn.africa</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-text">&copy; 2025 Mokala Inn (Pty) Ltd. All rights reserved.</p>
+            <p class="footer-text">Accredited by Tourism Grading Council of South Africa | 51% Black Female Owned | 49% Youth Ownership</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            if (window.scrollY > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add staggered delay for multiple elements
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll, .slide-left, .slide-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Back to top functionality
+        const backToTopBtn = document.querySelector('.back-to-top');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Service card hover effect
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-20px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
