@@ -26,6 +26,7 @@
             --card-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
             --gold: #FFD700;
             --bronze: #CD7F32;
+            --transition-standard: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         body {
@@ -34,6 +35,60 @@
             color: var(--text-dark);
             overflow-x: hidden;
             background: var(--light-red-gradient);
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 0 0 4px 4px;
+            text-decoration: none;
+            z-index: 10000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Loading animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 8px solid white;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Navigation */
@@ -45,7 +100,7 @@
             backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 1rem 0;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             border-bottom: 2px solid transparent;
         }
 
@@ -79,6 +134,11 @@
         .logo img {
             height: 50px;
             margin-right: 10px;
+            transition: var(--transition-standard);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -92,7 +152,7 @@
             color: var(--text-dark);
             font-weight: 600;
             position: relative;
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             padding: 0.5rem 1rem;
             border-radius: 25px;
         }
@@ -103,6 +163,11 @@
             transform: translateY(-2px);
         }
 
+        .nav-links a.active {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -111,7 +176,7 @@
             width: 0;
             height: 3px;
             background: var(--primary-gradient);
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             border-radius: 2px;
             transform: translateX(-50%);
         }
@@ -127,6 +192,11 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-red);
+            transition: var(--transition-standard);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
         }
 
         /* Page Header */
@@ -176,6 +246,8 @@
             margin-bottom: 1.5rem;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
         }
 
         .breadcrumb {
@@ -183,6 +255,8 @@
             justify-content: center;
             list-style: none;
             font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.8s forwards;
         }
 
         .breadcrumb li {
@@ -192,12 +266,28 @@
         .breadcrumb a {
             color: var(--text-light);
             text-decoration: none;
+            transition: var(--transition-standard);
+        }
+
+        .breadcrumb a:hover {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .breadcrumb li:not(:last-child)::after {
             content: '>';
             margin-left: 1rem;
             color: var(--text-light);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Main Content */
@@ -253,6 +343,7 @@
             overflow: hidden;
             box-shadow: var(--card-shadow);
             height: 500px;
+            position: relative;
         }
 
         .about-image img {
@@ -266,6 +357,22 @@
             transform: scale(1.05);
         }
 
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover .image-overlay {
+            transform: translateY(0);
+        }
+
         .highlight-box {
             background: var(--primary-gradient);
             color: var(--text-light);
@@ -274,6 +381,7 @@
             margin: 2rem 0;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
         }
 
         .highlight-box::before {
@@ -310,9 +418,28 @@
             border-radius: 20px;
             text-align: center;
             box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             border: 2px solid transparent;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .stat-item:hover::before {
+            transform: scaleX(1);
         }
 
         .stat-item:hover {
@@ -354,7 +481,7 @@
             padding: 3rem;
             border-radius: 25px;
             box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             position: relative;
             overflow: hidden;
             border: 2px solid #fee2e2;
@@ -400,11 +527,12 @@
             background: var(--white-gradient);
             border-radius: 20px;
             padding: 2.5rem;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             position: relative;
             overflow: hidden;
             box-shadow: var(--card-shadow);
             border: 2px solid transparent;
+            cursor: pointer;
         }
 
         .value-card:hover {
@@ -428,84 +556,77 @@
             color: var(--text-dark);
         }
 
-        /* Leadership Section */
-        .leadership {
+        /* Timeline Section */
+        .timeline {
             padding: 6rem 0;
             background: var(--light-red-gradient);
         }
 
-        .leadership-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
         }
 
-        .leader-card {
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--primary-gradient);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            width: 50%;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            padding-right: 0;
+            padding-left: 3rem;
+        }
+
+        .timeline-content {
             background: var(--white-gradient);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 35px 70px rgba(220, 38, 38, 0.25);
-        }
-
-        .leader-image {
-            height: 300px;
-            overflow: hidden;
-        }
-
-        .leader-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .leader-card:hover .leader-image img {
-            transform: scale(1.1);
-        }
-
-        .leader-info {
             padding: 2rem;
-            text-align: center;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            transition: var(--transition-standard);
         }
 
-        .leader-info h3 {
-            font-size: 1.5rem;
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            right: auto;
+            left: -10px;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: var(--text-red);
             margin-bottom: 0.5rem;
-            color: var(--text-red);
-        }
-
-        .leader-info p {
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .leader-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #fee2e2;
-        }
-
-        .leader-contact a {
-            color: var(--text-dark);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .leader-contact a:hover {
-            color: var(--text-red);
-            transform: translateX(5px);
+            font-size: 1.2rem;
         }
 
         /* CTA Section */
@@ -514,12 +635,28 @@
             background: var(--primary-gradient);
             text-align: center;
             color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
         }
 
         .cta h2 {
             font-size: 3rem;
             margin-bottom: 2rem;
             font-weight: 900;
+            position: relative;
+            z-index: 2;
         }
 
         .cta p {
@@ -528,6 +665,8 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 2;
         }
 
         .cta-buttons {
@@ -535,6 +674,8 @@
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
         .cta-button {
@@ -545,17 +686,33 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 700;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
         }
 
         .cta-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            background: transparent;
             color: var(--text-light);
-            border-color: white;
         }
 
         .cta-button.secondary {
@@ -617,7 +774,7 @@
         .footer-links a {
             color: var(--text-light);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             opacity: 0.9;
             display: flex;
             align-items: center;
@@ -644,7 +801,7 @@
             background: rgba(255,255,255,0.1);
             border-radius: 50%;
             color: var(--text-light);
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
         }
 
         .social-links a:hover {
@@ -679,7 +836,7 @@
             justify-content: center;
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -751,8 +908,28 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .leadership-container {
-                grid-template-columns: 1fr;
+            .timeline-container::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                margin-left: 0;
+                padding-left: 70px;
+            }
+            
+            .timeline-item::after {
+                left: 20px;
+                right: auto;
+            }
+            
+            .timeline-item:nth-child(even)::after {
+                left: 20px;
             }
             
             .cta-buttons {
@@ -767,6 +944,24 @@
             
             .social-links {
                 justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
             }
         }
 
@@ -806,11 +1001,20 @@
     </style>
 </head>
 <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Loading screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading Mokala Inn...</p>
+    </div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <a href="index.html"><img src="assets/MokalaLogo.png" height="90" width="90" alt="Mokala Inn Logo"></a> 
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -819,7 +1023,7 @@
                 <!--<li><a href="accommodation.html">Accommodation</a></li>-->
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -837,7 +1041,7 @@
     </section>
 
     <!-- About Intro Section -->
-    <section class="about-intro">
+    <section class="about-intro" id="main-content">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Our Story</h2>
             <p class="section-subtitle animate-on-scroll">A testament to empowerment and youth leadership in Northern Cape</p>
@@ -857,6 +1061,10 @@
                 
                 <div class="about-image slide-right">
                     <img src="assets/room.png" alt="Mokala Inn Exterior">
+                    <div class="image-overlay">
+                        <h3>Mokala Inn - Premier Hospitality in Kuruman</h3>
+                        <p>Experience our welcoming atmosphere and exceptional service</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -966,45 +1174,55 @@
         </div>
     </section>
 
-    <!-- Leadership Section
-    <section class="leadership">
+    <!-- Timeline Section -->
+    <section class="timeline">
         <div class="container">
-            <h2 class="section-title animate-on-scroll">Our Leadership</h2>
-            <p class="section-subtitle animate-on-scroll">The passionate team driving Mokala Inn's success</p>
+            <h2 class="section-title animate-on-scroll">Our Journey</h2>
+            <p class="section-subtitle animate-on-scroll">Milestones that shaped Mokala Inn</p>
             
-            <div class="leadership-container">
-                <div class="leader-card animate-on-scroll">
-                    <div class="leader-image">
-                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rhodia Peter">
-                    </div>
-                    <div class="leader-info">
-                        <h3>Rhodia Peter</h3>
-                        <p>Director</p>
-                        <p>With a passion for hospitality and community development, Rhodia leads Mokala Inn with vision and dedication.</p>
-                        <div class="leader-contact">
-                            <a href="mailto:rhodia@mokalainn.africa"><i class="fas fa-envelope"></i> rhodia@mokalainn.africa</a>
-                            <a href="tel:0823804215"><i class="fas fa-phone"></i> 082 380 4215</a>
-                        </div>
+            <div class="timeline-container">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2014</div>
+                        <h3>Foundation</h3>
+                        <p>Mokala Inn was established with a vision to provide exceptional hospitality services in Kuruman, focusing on empowerment and community development.</p>
                     </div>
                 </div>
                 
-                <div class="leader-card animate-on-scroll">
-                    <div class="leader-image">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Phitlhelelo Peter">
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2016</div>
+                        <h3>Expansion</h3>
+                        <p>We expanded our services to include comprehensive catering solutions, becoming a one-stop destination for accommodation and dining needs.</p>
                     </div>
-                    <div class="leader-info">
-                        <h3>Phitlhelelo Peter</h3>
-                        <p>Director</p>
-                        <p>Phitlhelelo brings strategic insight and operational excellence to Mokala Inn's management team.</p>
-                        <div class="leader-contact">
-                            <a href="mailto:phitlhelelo@mokalainn.africa"><i class="fas fa-envelope"></i> phitlhelelo@mokalainn.africa</a>
-                            <a href="tel:0824066675"><i class="fas fa-phone"></i> 082 406 6675</a>
-                        </div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018</div>
+                        <h3>Recognition</h3>
+                        <p>Achieved Tourism Grading Council accreditation, validating our commitment to quality and excellence in hospitality services.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <h3>Community Impact</h3>
+                        <p>Launched community empowerment initiatives, creating sustainable employment opportunities and supporting local businesses.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item animate-on-scroll">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <h3>Digital Transformation</h3>
+                        <p>Enhanced our online presence and booking systems to provide seamless experiences for our guests from anywhere in the world.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <!-- CTA Section -->
     <section class="cta">
@@ -1022,13 +1240,13 @@
     <footer>
         <div class="footer-content">
             <div class="footer-about">
-                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <a href="index.html"><img src="assets/MokalaLogo.png" height="90" width="90" alt="Mokala Inn Logo"></a> 
                 <p class="footer-about">A premier hospitality establishment in Kuruman, offering exceptional accommodation and catering services with a commitment to empowerment and community development.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             
@@ -1071,11 +1289,18 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
+    <a href="#" class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </a>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1500);
+        });
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
@@ -1092,6 +1317,26 @@
             } else {
                 backToTop.classList.remove('visible');
             }
+
+            // Update active nav link based on scroll position
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
 
         // Mobile menu toggle
@@ -1198,14 +1443,25 @@
             });
         }
 
-        // Add loading animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
+        // Value cards interactive effect
+        const valueCards = document.querySelectorAll('.value-card');
+        valueCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
             
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add parallax effect to page header
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.page-header');
+            if (parallax) {
+                parallax.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            }
         });
     </script>
 </body>

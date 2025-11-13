@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services - Mokala Inn</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="icon" href="assets/MokalaLogo.png" type="image/png">
-
+    <link rel="icon" href="assets/MokalaLogo.png" type="image/png">
     <style>
         * {
             margin: 0;
@@ -27,6 +26,7 @@
             --card-shadow: 0 25px 50px rgba(220, 38, 38, 0.15);
             --gold: #FFD700;
             --bronze: #CD7F32;
+            --transition-standard: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         body {
@@ -35,6 +35,60 @@
             color: var(--text-dark);
             overflow-x: hidden;
             background: var(--light-red-gradient);
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 0 0 4px 4px;
+            text-decoration: none;
+            z-index: 10000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Loading animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 8px solid white;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Navigation */
@@ -46,7 +100,7 @@
             backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 1rem 0;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             border-bottom: 2px solid transparent;
         }
 
@@ -80,6 +134,11 @@
         .logo img {
             height: 50px;
             margin-right: 10px;
+            transition: var(--transition-standard);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -93,7 +152,7 @@
             color: var(--text-dark);
             font-weight: 600;
             position: relative;
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             padding: 0.5rem 1rem;
             border-radius: 25px;
         }
@@ -104,6 +163,11 @@
             transform: translateY(-2px);
         }
 
+        .nav-links a.active {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -112,7 +176,7 @@
             width: 0;
             height: 3px;
             background: var(--primary-gradient);
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             border-radius: 2px;
             transform: translateX(-50%);
         }
@@ -128,6 +192,11 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-red);
+            transition: var(--transition-standard);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
         }
 
         /* Page Header */
@@ -177,6 +246,8 @@
             margin-bottom: 1.5rem;
             font-weight: 900;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
         }
 
         .breadcrumb {
@@ -184,6 +255,8 @@
             justify-content: center;
             list-style: none;
             font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.8s forwards;
         }
 
         .breadcrumb li {
@@ -193,12 +266,28 @@
         .breadcrumb a {
             color: var(--text-light);
             text-decoration: none;
+            transition: var(--transition-standard);
+        }
+
+        .breadcrumb a:hover {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .breadcrumb li:not(:last-child)::after {
             content: '>';
             margin-left: 1rem;
             color: var(--text-light);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Main Content */
@@ -255,7 +344,7 @@
             padding: 3rem;
             text-align: center;
             box-shadow: var(--card-shadow);
-            transition: all 0.5s ease;
+            transition: var(--transition-standard);
             border: 3px solid transparent;
             position: relative;
             overflow: hidden;
@@ -272,7 +361,7 @@
             width: 100%;
             height: 100%;
             background: var(--primary-gradient);
-            transition: all 0.5s ease;
+            transition: var(--transition-standard);
             z-index: -1;
         }
 
@@ -294,7 +383,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
         }
 
         .service-card:hover .service-icon {
@@ -320,16 +409,36 @@
             margin-bottom: 2rem;
         }
 
+        .service-features h4 {
+            margin-bottom: 1rem;
+            color: var(--text-red);
+            font-weight: 600;
+        }
+
+        .service-features ul {
+            list-style: none;
+        }
+
         .service-features li {
             margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            transition: var(--transition-standard);
+        }
+
+        .service-features li:hover {
+            transform: translateX(5px);
         }
 
         .service-features i {
             color: var(--text-red);
             font-size: 1.2rem;
+            transition: var(--transition-standard);
+        }
+
+        .service-card:hover .service-features i {
+            color: white;
         }
 
         .service-button {
@@ -340,9 +449,27 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             border: 2px solid transparent;
             margin-top: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .service-button:hover::before {
+            left: 0;
         }
 
         .service-button:hover {
@@ -380,7 +507,8 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
+            position: relative;
         }
 
         .package-card:hover {
@@ -393,16 +521,34 @@
             color: var(--text-light);
             padding: 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
         }
 
         .package-header h3 {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .package-price {
             font-size: 2.5rem;
             font-weight: 800;
+            position: relative;
+            z-index: 2;
         }
 
         .package-price span {
@@ -424,10 +570,16 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            transition: var(--transition-standard);
+        }
+
+        .package-features li:hover {
+            transform: translateX(5px);
         }
 
         .package-features i {
             color: var(--text-red);
+            transition: var(--transition-standard);
         }
 
         .package-button {
@@ -439,11 +591,30 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .package-button:hover::before {
+            left: 0;
         }
 
         .package-button:hover {
-            background: var(--secondary-gradient);
+            background: transparent;
+            color: var(--text-red);
             transform: translateY(-3px);
         }
 
@@ -452,6 +623,20 @@
             padding: 6rem 0;
             background: var(--light-red-gradient);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accreditation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.2) 0%, transparent 50%);
         }
 
         .accreditation-content {
@@ -461,6 +646,8 @@
             gap: 2rem;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         .accreditation-badge {
@@ -474,6 +661,18 @@
             color: white;
             font-size: 3rem;
             box-shadow: var(--card-shadow);
+            transition: var(--transition-standard);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .accreditation-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.4);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* Testimonials Section */
@@ -494,7 +693,7 @@
             padding: 2.5rem;
             box-shadow: var(--card-shadow);
             position: relative;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
         }
 
         .testimonial-card:hover {
@@ -527,6 +726,11 @@
             justify-content: center;
             color: white;
             font-size: 1.5rem;
+            transition: var(--transition-standard);
+        }
+
+        .testimonial-card:hover .testimonial-avatar {
+            transform: scale(1.1);
         }
 
         .testimonial-info h4 {
@@ -546,6 +750,12 @@
             right: 20px;
             font-size: 3rem;
             color: #fee2e2;
+            transition: var(--transition-standard);
+        }
+
+        .testimonial-card:hover .quote-icon {
+            color: var(--text-red);
+            transform: scale(1.1);
         }
 
         /* CTA Section */
@@ -554,12 +764,28 @@
             background: var(--primary-gradient);
             text-align: center;
             color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 50%);
         }
 
         .cta h2 {
             font-size: 3rem;
             margin-bottom: 2rem;
             font-weight: 900;
+            position: relative;
+            z-index: 2;
         }
 
         .cta p {
@@ -568,6 +794,8 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 2;
         }
 
         .cta-buttons {
@@ -575,6 +803,8 @@
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
 
         .cta-button {
@@ -585,17 +815,33 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 700;
-            transition: all 0.4s ease;
+            transition: var(--transition-standard);
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
         }
 
         .cta-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            background: transparent;
             color: var(--text-light);
-            border-color: white;
         }
 
         .cta-button.secondary {
@@ -657,7 +903,7 @@
         .footer-links a {
             color: var(--text-light);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             opacity: 0.9;
             display: flex;
             align-items: center;
@@ -684,7 +930,7 @@
             background: rgba(255,255,255,0.1);
             border-radius: 50%;
             color: var(--text-light);
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
         }
 
         .social-links a:hover {
@@ -719,7 +965,7 @@
             justify-content: center;
             text-decoration: none;
             box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
-            transition: all 0.3s ease;
+            transition: var(--transition-standard);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
@@ -798,6 +1044,24 @@
             }
         }
 
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-card {
+                padding: 2rem;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+        }
+
         /* Animation utilities */
         .animate-on-scroll {
             opacity: 0;
@@ -834,11 +1098,20 @@
     </style>
 </head>
 <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Loading screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading Mokala Inn...</p>
+    </div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <a href="index.html"><img src="assets/MokalaLogo.png" height="90" width="90" alt="Mokala Inn Logo"></a> 
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -847,7 +1120,7 @@
                 <!--<li><a href="accommodation.html">Accommodation</a></li>-->
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -865,7 +1138,7 @@
     </section>
 
     <!-- Services Intro -->
-    <section class="services-intro">
+    <section class="services-intro" id="main-content">
         <div class="container">
             <h2 class="section-title animate-on-scroll">Excellence in Hospitality</h2>
             <p class="animate-on-scroll">At Mokala Inn, we take pride in offering exceptional accommodation and catering services that exceed expectations. With over a decade of experience serving diverse clients in Kuruman and the Northern Cape region, we have perfected the art of hospitality.</p>
@@ -974,7 +1247,7 @@
                 <div class="package-card animate-on-scroll">
                     <div class="package-header">
                         <h3>Corporate Events</h3>
-                        <div class="package-price"><span></span></div>
+                        <div class="package-price">Custom Pricing</div>
                     </div>
                     <div class="package-body">
                         <ul class="package-features">
@@ -992,7 +1265,7 @@
                 <div class="package-card animate-on-scroll">
                     <div class="package-header">
                         <h3>Weddings</h3>
-                        <div class="package-price"><span></span></div>
+                        <div class="package-price">Custom Pricing</div>
                     </div>
                     <div class="package-body">
                         <ul class="package-features">
@@ -1010,7 +1283,7 @@
                 <div class="package-card animate-on-scroll">
                     <div class="package-header">
                         <h3>Private Functions</h3>
-                        <div class="package-price"><span></span></div>
+                        <div class="package-price">Custom Pricing</div>
                     </div>
                     <div class="package-body">
                         <ul class="package-features">
@@ -1105,13 +1378,13 @@
     <footer>
         <div class="footer-content">
             <div class="footer-about">
-                <a ><img src="assets/MokalaLogo.png" height="90" width="90"></a> 
+                <a href="index.html"><img src="assets/MokalaLogo.png" height="90" width="90" alt="Mokala Inn Logo"></a> 
                 <p class="footer-about">A premier hospitality establishment in Kuruman, offering exceptional accommodation and catering services with a commitment to empowerment and community development.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             
@@ -1154,11 +1427,18 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
+    <a href="#" class="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </a>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1500);
+        });
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
@@ -1175,6 +1455,26 @@
             } else {
                 backToTop.classList.remove('visible');
             }
+
+            // Update active nav link based on scroll position
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
 
         // Mobile menu toggle
@@ -1239,18 +1539,9 @@
             });
         }
 
-        // Add loading animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // Service card hover effect
-        document.querySelectorAll('.service-card').forEach(card => {
+        // Service card interactive effects
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-20px)';
             });
@@ -1259,6 +1550,36 @@
                 this.style.transform = 'translateY(0)';
             });
         });
+
+        // Package card interactive effects
+        const packageCards = document.querySelectorAll('.package-card');
+        packageCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add parallax effect to page header
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.page-header');
+            if (parallax) {
+                parallax.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            }
+        });
+
+        // Add floating animation to accreditation badge
+        const accreditationBadge = document.querySelector('.accreditation-badge');
+        if (accreditationBadge) {
+            setInterval(() => {
+                accreditationBadge.style.animation = 'float 3s ease-in-out infinite';
+            }, 100);
+        }
     </script>
 </body>
 </html>
+
